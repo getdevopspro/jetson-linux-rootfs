@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    outputs:
+      version: ${{ steps.release_version.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Build container image
+        uses: getdevopspro/github-actions/buildx-bake@v0.2.12
+        with:
+          registry-password: ${{ secrets.GITHUB_TOKEN }}
