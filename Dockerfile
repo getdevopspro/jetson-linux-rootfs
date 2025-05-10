@@ -36,3 +36,4 @@ COPY --from=jetson_linux_sample_rootfs_artfifact /rootfs /
 
 LABEL org.opencontainers.image.title="NVIDIA Jetson Linux Sample RootFS" \
       org.opencontainers.image.version="${JETSON_VERSION}" \
+      org.opencontainers.image.description="Container image based on NVIDIA's official Linux for Tegra (L4T) sample root filesystem"
