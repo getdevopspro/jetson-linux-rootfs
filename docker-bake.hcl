@@ -30,13 +30,15 @@ target "build" {
     JETSON_LINUX_ROOTFS_PACKAGE_NAME = split(".", jetson_version)[0] == "35" ? "tegra_linux_sample-root-filesystem_r35.${split(".", jetson_version)[1]}.${split(".", jetson_version)[2]}_aarch64.tbz2" : null,
     JETSON_LINUX_ROOTFS_PACKAGE_URL  = split(".", jetson_version)[0] == "35" ? "https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v${split(".", jetson_version)[1]}.${split(".", jetson_version)[2]}/tegra_linux_sample-root-filesystem_r35.${split(".", jetson_version)[1]}.${split(".", jetson_version)[2]}_aarch64.tbz2" : null,
   }
-  tags = [
-    jetson_version == JETSON_VERSIONS[0] ? "${IMAGE_NAME}:latest" : null,
-    "${IMAGE_NAME}:${split(".", jetson_version)[0]}",
-    "${IMAGE_NAME}:${split(".", jetson_version)[0]}.${split(".", jetson_version)[1]}",
-    "${IMAGE_NAME}:${jetson_version}",
-    "${IMAGE_NAME}:${jetson_version}-${formatdate("YYYYMMDDhhmm", timestamp())}",
-  ]
+  tags = concat(
+    jetson_version == JETSON_VERSIONS[0] ? ["${IMAGE_NAME}:latest"] : [],
+    [
+      "${IMAGE_NAME}:${split(".", jetson_version)[0]}",
+      "${IMAGE_NAME}:${split(".", jetson_version)[0]}.${split(".", jetson_version)[1]}",
+      "${IMAGE_NAME}:${jetson_version}",
+      "${IMAGE_NAME}:${jetson_version}-${formatdate("YYYYMMDDhhmm", timestamp())}",
+    ]
+  )
   labels = {
     "manifest:org.opencontainers.image.version" : jetson_version
     "org.opencontainers.image.version" = jetson_version
@@ -65,13 +67,15 @@ target "build-variants" {
     JETSON_SAMPLEFS_FLAVOR  = samplefs_variant,
     JETSON_SAMPLEFS_VERSION = "jammy"
   }
-  tags = [
-    jetson_version == JETSON_VERSIONS[0] ? "${IMAGE_NAME}-${samplefs_variant}:latest" : null,
-    "${IMAGE_NAME}-${samplefs_variant}:${split(".", jetson_version)[0]}",
-    "${IMAGE_NAME}-${samplefs_variant}:${split(".", jetson_version)[0]}.${split(".", jetson_version)[1]}",
-    "${IMAGE_NAME}-${samplefs_variant}:${jetson_version}",
-    "${IMAGE_NAME}-${samplefs_variant}:${jetson_version}-${formatdate("YYYYMMDDhhmm", timestamp())}",
-  ]
+  tags = concat(
+    jetson_version == JETSON_VERSIONS[0] ? ["${IMAGE_NAME}-${samplefs_variant}:latest"] : [],
+    [
+      "${IMAGE_NAME}-${samplefs_variant}:${split(".", jetson_version)[0]}",
+      "${IMAGE_NAME}-${samplefs_variant}:${split(".", jetson_version)[0]}.${split(".", jetson_version)[1]}",
+      "${IMAGE_NAME}-${samplefs_variant}:${jetson_version}",
+      "${IMAGE_NAME}-${samplefs_variant}:${jetson_version}-${formatdate("YYYYMMDDhhmm", timestamp())}",
+    ]
+  )
   labels = {
     "manifest:org.opencontainers.image.version" : jetson_version
     "org.opencontainers.image.version" = jetson_version
