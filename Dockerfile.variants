@@ -1,27 +1,3 @@
-############ BUILDER ############
-ARG JETSON_VERSION_MAJOR=36
-ARG JETSON_VERSION_MINOR=4
-ARG JETSON_VERSION_PATCH=3
-ARG JETSON_VERSION=${JETSON_VERSION_MAJOR}.${JETSON_VERSION_MINOR}.${JETSON_VERSION_PATCH}
-ARG JETSON_LINUX_BUILDER_IMAGE_FROM=ghcr.io/getdevopspro/jetson-linux-builder:${JETSON_VERSION}
-FROM --platform=linux/amd64 ${JETSON_LINUX_BUILDER_IMAGE_FROM} AS jetson_linux_builder
-
-ARG JETSON_SAMPLEFS_ABI=aarch64
-ARG JETSON_SAMPLEFS_DISTRO=ubuntu
-ARG JETSON_SAMPLEFS_FLAVOR=minimal
-ARG JETSON_SAMPLEFS_VERSION=jammy
-
-WORKDIR /workspace/tools/samplefs
-
-RUN sed -i "s@arch | grep .*@arch | grep \"$(arch)\")\"@" nv_build_samplefs.sh && \
-    # sudo ./nv_build_samplefs.sh --abi aarch64 --distro ubuntu --flavor minimal --version jammy
-    sudo ./nv_build_samplefs.sh --abi ${JETSON_SAMPLEFS_ABI} --distro ${JETSON_SAMPLEFS_DISTRO} --flavor ${JETSON_SAMPLEFS_FLAVOR} --version ${JETSON_SAMPLEFS_VERSION}
-
-WORKDIR /workspace/tools/samplefs/rootfs
-
-RUN tar --use-compress-program=lbzip2 /workspace/tools/samplefs/sample_fs.tbz2
-
-############ SAMPLEFS ############
 FROM scratch
 
 ARG JETSON_VERSION_MAJOR=36
@@ -42,7 +18,7 @@ ENV JETSON_VERSION_MAJOR=${JETSON_VERSION_MAJOR} \
     JETSON_SAMPLEFS_FLAVOR=${JETSON_SAMPLEFS_FLAVOR} \
     JETSON_SAMPLEFS_VERSION=${JETSON_SAMPLEFS_VERSION}
 
-COPY --from=jetson_linux_builder /workspace/tools/samplefs/rootfs/ /
+ADD sample_fs-${JETSON_VERSION}-${JETSON_SAMPLEFS_FLAVOR}.tbz2 /
 
 LABEL org.opencontainers.image.title="NVIDIA Jetson Linux SampleFS ${JETSON_SAMPLEFS_ABI}-${JETSON_SAMPLEFS_DISTRO}-${JETSON_SAMPLEFS_FLAVOR}-${JETSON_SAMPLEFS_VERSION}" \
       org.opencontainers.image.version="${JETSON_VERSION}" \

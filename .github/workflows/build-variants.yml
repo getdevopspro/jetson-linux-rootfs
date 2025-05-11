@@ -24,6 +24,10 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: Build rootfs variants files
+        run: |
+          make build-rootfs-variants
+
       - name: Build container image
         uses: getdevopspro/github-actions/buildx-bake@v0.2.12
         with:
