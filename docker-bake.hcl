@@ -74,7 +74,7 @@ target "build-variants" {
     JETSON_SAMPLEFS_ABI     = "aarch64",
     JETSON_SAMPLEFS_DISTRO  = "ubuntu",
     JETSON_SAMPLEFS_FLAVOR  = samplefs_variant,
-    JETSON_SAMPLEFS_VERSION = JETSON_VERSIONS[0].ubuntu_release,
+    JETSON_SAMPLEFS_VERSION = JETSON_VERSIONS[jetson_version].ubuntu_release,
   }
   tags = concat(
     jetson_version.number == JETSON_VERSIONS[0].number ? ["${IMAGE_NAME}-${samplefs_variant}:latest"] : [],
