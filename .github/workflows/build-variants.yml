@@ -24,6 +24,9 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
 
+      - name: Set up qemu
+        uses: docker/setup-qemu-action@v3
+
       - name: Build rootfs variants files
         run: |
           make build-rootfs-variants
