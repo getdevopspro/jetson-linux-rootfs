@@ -2,3 +2,4 @@
 *.tar
 *.tar.gz
 *.tgz
+.shared

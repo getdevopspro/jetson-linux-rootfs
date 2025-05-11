@@ -13,23 +13,46 @@ permissions:
   packages: write
 
 jobs:
-  build-variants:
+  files-variants:
     runs-on: ubuntu-24.04
-    outputs:
-      version: ${{ steps.release_version.outputs.version }}
+    strategy:
+      matrix:
+        jetson_version_pair: ["36.4.3,jammy", "35.6.1,focal"]
+        jetson_samplefs_flavor: ["minimal", "basic", "desktop"]
+    name: Build for ${{ matrix.variant }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          fetch-tags: true
 
       - name: Set up qemu
         uses: docker/setup-qemu-action@v3
 
       - name: Build rootfs variants files
         run: |
-          make build-rootfs-variants
+          make build-rootfs-variant \
+            JETSON_VERSION_PAIR=${{ matrix.jetson_version_pair }} \
+            JETSON_SAMPLEFS_FLAVOR=${{ matrix.jetson_samplefs_flavor }}
+
+      - name: Upload shared artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          path: .shared
+          name: shared-${{ matrix.jetson_version_pair }}-${{ matrix.jetson_samplefs_flavor }}
+
+  build-variants:
+    runs-on: ubuntu-24.04
+    needs: files-variants
+    outputs:
+      version: ${{ steps.release_version.outputs.version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: .shared
+          pattern: shared-*
+          merge-multiple: true
 
       - name: Build container image
         uses: getdevopspro/github-actions/buildx-bake@v0.2.12
