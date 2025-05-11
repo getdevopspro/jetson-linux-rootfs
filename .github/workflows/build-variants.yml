@@ -1,4 +1,4 @@
-name: Build
+name: Build Variants
 
 on:
   schedule:
@@ -13,7 +13,7 @@ permissions:
   packages: write
 
 jobs:
-  build:
+  build-variants:
     runs-on: ubuntu-24.04
     outputs:
       version: ${{ steps.release_version.outputs.version }}
