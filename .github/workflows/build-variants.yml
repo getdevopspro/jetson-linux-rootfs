@@ -40,7 +40,7 @@ jobs:
           name: shared-${{ matrix.jetson_version_pair }}-${{ matrix.jetson_samplefs_flavor }}
 
   build-variants:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-24.04-arm
     needs: files-variants
     outputs:
       version: ${{ steps.release_version.outputs.version }}

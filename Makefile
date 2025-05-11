@@ -11,6 +11,7 @@ JETSON_SAMPLEFS_FLAVOR ?= $(firstword $(JETSON_SAMPLEFS_FLAVORS))
 JETSON_SAMPLEFS_VERSION ?= $(shell echo $(JETSON_VERSION_PAIR) | cut -d, -f2)
 
 build-rootfs-variant: ## Build a rootfs variant
+	@mkdir -p .shared
 	docker run --rm \
 		--name build-rootfs-$(JETSON_VERSION)-$(JETSON_SAMPLEFS_FLAVOR) \
 		--privileged \
@@ -18,7 +19,7 @@ build-rootfs-variant: ## Build a rootfs variant
 		-v $(PWD)/.shared:/workspace/shared \
 		--workdir /workspace/tools/samplefs \
 		--platform linux/$(ARCH) \
-		ghcr.io/getdevopspro/jetson-linux-builder:$(JETSON_VERSION) bash -c \
+		ghcr.io/getdevopspro/jetson-linux-builder:$(JETSON_VERSION) bash -xc \
 			'sed -i "s@arch | grep .*@arch | grep \"$$(arch)\")\"@" nv_build_samplefs.sh; \
 			sudo bash -x ./nv_build_samplefs.sh \
 			--abi $(JETSON_SAMPLEFS_ABI) \
@@ -26,7 +27,7 @@ build-rootfs-variant: ## Build a rootfs variant
 			--flavor $(JETSON_SAMPLEFS_FLAVOR) \
 			--version $(JETSON_SAMPLEFS_VERSION); \
 			chown $(UID) sample_fs.tbz2; \
-			cp -p sample_fs.tbz2 /workspace/shared/sample_fs-$(JETSON_SAMPLEFS_VERSION)-$(JETSON_SAMPLEFS_FLAVOR).tbz2'
+			mv sample_fs.tbz2 /workspace/shared/sample_fs-$(JETSON_SAMPLEFS_VERSION)-$(JETSON_SAMPLEFS_FLAVOR).tbz2'
 
 build-rootfs-variants: ## Build all rootfs variants
 	for jetson_version in $(JETSON_VERSION_PAIRS); do \
