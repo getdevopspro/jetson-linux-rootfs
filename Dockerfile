@@ -1,6 +1,6 @@
 ############ SAMPLE ROOTFS ARTIFACT ############
-ARG JETSON_LINUX_SAMPLE_ROOTFS_ARTFIFACT_IMAGE_BASE=docker.io/ubuntu:jammy
-FROM ${JETSON_LINUX_SAMPLE_ROOTFS_ARTFIFACT_IMAGE_BASE} AS jetson_linux_sample_rootfs_artfifact
+ARG JETSON_LINUX_SAMPLE_ROOTFS_ARTIFACT_IMAGE_BASE=docker.io/ubuntu:jammy
+FROM ${JETSON_LINUX_SAMPLE_ROOTFS_ARTIFACT_IMAGE_BASE} AS jetson_linux_sample_rootfs_artifact
 
 ARG JETSON_VERSION_MAJOR=36
 ARG JETSON_VERSION_MINOR=4
@@ -38,7 +38,7 @@ ENV JETSON_VERSION_MAJOR=${JETSON_VERSION_MAJOR} \
     JETSON_LINUX_ROOTFS_PACKAGE_NAME=${JETSON_LINUX_ROOTFS_PACKAGE_NAME} \
     JETSON_LINUX_ROOTFS_PACKAGE_URL=${JETSON_LINUX_ROOTFS_PACKAGE_URL}
 
-COPY --from=jetson_linux_sample_rootfs_artfifact /rootfs /
+COPY --from=jetson_linux_sample_rootfs_artifact /rootfs /
 
 LABEL org.opencontainers.image.title="NVIDIA Jetson Linux Sample RootFS" \
       org.opencontainers.image.version="${JETSON_VERSION}" \
