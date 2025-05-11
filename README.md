@@ -9,9 +9,9 @@ Ideal for developers targeting **Jetson Nano**, **Xavier**, **Orin**, and other 
 ## 🚀 Key Features
 
 * Based on official L4T sample rootfs.
-* Ready-to-use base image for ARM64 containers.
 * Easily extendable using multi-stage Docker builds.
 * Supports QEMU for x86\_64 → ARM64 emulation.
+* CI/CD friendly for automated builds.
 
 ---
 
