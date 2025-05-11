@@ -28,3 +28,4 @@ jobs:
         uses: getdevopspro/github-actions/buildx-bake@v0.2.12
         with:
           registry-password: ${{ secrets.GITHUB_TOKEN }}
+          bake-targets: build,build-variants
