@@ -36,7 +36,8 @@ jobs:
       - name: Upload shared artifacts
         uses: actions/upload-artifact@v4
         with:
-          path: .shared
+          path: ./.shared
+          include-hidden-files: true
           name: shared-${{ matrix.jetson_version_pair }}-${{ matrix.jetson_samplefs_flavor }}
 
   build-variants:
@@ -50,7 +51,7 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          path: .shared
+          path: ./.shared
           pattern: shared-*
           merge-multiple: true
 
