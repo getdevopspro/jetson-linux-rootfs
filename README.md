@@ -52,7 +52,7 @@ These are built following the script and process described in the [Jetson docume
 
 Image naming convention:
 
-`ghcr.io/getdevopspro/jetson-linux-rootfs-\<variant>:\<L4T\_VERSION>`
+`ghcr.io/getdevopspro/jetson-linux-rootfs-\<variant>:<L4T_VERSION>`
 
 Examples:
 
