@@ -51,13 +51,14 @@ In addition to the default sample rootfs, this repository also provides three ad
 These are built following the script and process described in the [Jetson documentation](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#manually-generate-a-root-file-system)
 
 Image naming convention:
-ghcr.io/getdevopspro/jetson-linux-rootfs-\<variant>:\<L4T\_VERSION>
+
+`ghcr.io/getdevopspro/jetson-linux-rootfs-\<variant>:\<L4T\_VERSION>`
 
 Examples:
 
-* ghcr.io/getdevopspro/jetson-linux-rootfs-minimal:36.4.3
-* ghcr.io/getdevopspro/jetson-linux-rootfs-basic:36.4.3
-* ghcr.io/getdevopspro/jetson-linux-rootfs-desktop:36.4.3
+* `ghcr.io/getdevopspro/jetson-linux-rootfs-minimal:36.4.3`
+* `ghcr.io/getdevopspro/jetson-linux-rootfs-basic:36.4.3`
+* `ghcr.io/getdevopspro/jetson-linux-rootfs-desktop:36.4.3`
 
 Choose the appropriate variant depending on your application's requirements.
 
