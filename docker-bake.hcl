@@ -48,7 +48,7 @@ target "build" {
 target "build-variants" {
   inherits   = ["docker-metadata-action"]
   context    = "./"
-  dockerfile = "Dockerfile"
+  dockerfile = "Dockerfile.variants"
   name       = "${replace(sanitize(IMAGE_NAME), "_", "-")}-${replace(sanitize(jetson_version), "_", "-")}-${replace(sanitize(samplefs_variant), "_", "-")}"
   platforms = [
     "linux/arm64",
