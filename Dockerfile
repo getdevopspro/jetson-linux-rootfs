@@ -16,6 +16,7 @@ ADD ${JETSON_LINUX_ROOTFS_PACKAGE_URL} /jetson_linux_rootfs.tbz2
 WORKDIR /rootfs
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked  \
+    export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && apt-get install -y lbzip2 && \
     tar --use-compress-program=lbzip2 -xf /jetson_linux_rootfs.tbz2
 
