@@ -17,7 +17,7 @@ build-rootfs-variant: ## Build a rootfs variant
 		--workdir /workspace/tools/samplefs \
 		ghcr.io/getdevopspro/jetson-linux-builder:$(JETSON_VERSION) bash -c \
 			'sed -i "s@arch | grep .*@arch | grep \"$$(arch)\")\"@" nv_build_samplefs.sh; \
-			sudo ./nv_build_samplefs.sh \
+			sudo bash -x ./nv_build_samplefs.sh \
 			--abi $(JETSON_SAMPLEFS_ABI) \
 			--distro $(JETSON_SAMPLEFS_DISTRO) \
 			--flavor $(JETSON_SAMPLEFS_FLAVOR) \
