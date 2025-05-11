@@ -40,6 +40,29 @@ EOF
 
 ---
 
+## 🧱 Image Variants
+
+In addition to the default sample rootfs, this repository also provides three additional root filesystem variants based on NVIDIA's official L4T scripts:
+
+1. minimal – smallest footprint with only essential components
+2. basic – includes minimal plus common runtime libraries and tools
+3. desktop – includes GUI and desktop-related components
+
+These are built following the script and process described in the [Jetson documentation](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#manually-generate-a-root-file-system)
+
+Image naming convention:
+ghcr.io/getdevopspro/jetson-linux-rootfs-<variant>:\<L4T\_VERSION>
+
+Examples:
+
+* ghcr.io/getdevopspro/jetson-linux-rootfs-minimal:36.4.3
+* ghcr.io/getdevopspro/jetson-linux-rootfs-basic:36.4.3
+* ghcr.io/getdevopspro/jetson-linux-rootfs-desktop:36.4.3
+
+Choose the appropriate variant depending on your application's requirements.
+
+---
+
 ## 📦 Image Tags
 
 Images are published to GitHub Container Registry (GHCR):
