@@ -44,14 +44,14 @@ EOF
 
 In addition to the default sample rootfs, this repository also provides three additional root filesystem variants based on NVIDIA's official L4T scripts:
 
-1. minimal – smallest footprint with only essential components
-2. basic – includes minimal plus common runtime libraries and tools
-3. desktop – includes GUI and desktop-related components
+1. **[minimal](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#minimal-flavor-root-file-system)** – smallest footprint with only essential components
+2. **[basic](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#basic-flavor-root-file-system)** – includes minimal plus common runtime libraries and tools
+3. **[desktop](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#desktop-flavor-root-file-system)** – includes GUI and desktop-related components
 
 These are built following the script and process described in the [Jetson documentation](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#manually-generate-a-root-file-system)
 
 Image naming convention:
-ghcr.io/getdevopspro/jetson-linux-rootfs-<variant>:\<L4T\_VERSION>
+ghcr.io/getdevopspro/jetson-linux-rootfs-\<variant>:\<L4T\_VERSION>
 
 Examples:
 
@@ -66,7 +66,14 @@ Choose the appropriate variant depending on your application's requirements.
 ## 📦 Image Tags
 
 Images are published to GitHub Container Registry (GHCR):
+
 👉 [`ghcr.io/getdevopspro/jetson-linux-rootfs`](https://ghcr.io/getdevopspro/jetson-linux-rootfs)
+
+👉 [`ghcr.io/getdevopspro/jetson-linux-rootfs-minimal`](https://ghcr.io/getdevopspro/jetson-linux-rootfs-minimal)
+
+👉 [`ghcr.io/getdevopspro/jetson-linux-rootfs-basic`](https://ghcr.io/getdevopspro/jetson-linux-rootfs-basic)
+
+👉 [`ghcr.io/getdevopspro/jetson-linux-rootfs-desktop`](https://ghcr.io/getdevopspro/jetson-linux-rootfs-desktop)
 
 Tag format: `L4T_VERSION`, e.g., `36.4.3`
 
@@ -75,3 +82,10 @@ Tag format: `L4T_VERSION`, e.g., `36.4.3`
 ## 🙌 Contributing
 
 Contributions are welcome! Whether it's a bug report, feature request, or a pull request — we'd love your input to make this project better.
+
+## 🙏 Acknowledgements
+
+This project references and uses software from officially and publicly available resources provided by NVIDIA, including the Jetson Linux L4T release packages and associated tools. It also relies on Ubuntu and other open source components.
+While this container is designed to simplify the use of these tools, it is not an official NVIDIA project and is not affiliated with or endorsed by NVIDIA.
+
+All trademarks and registered trademarks are the property of their respective owners.
