@@ -1,6 +1,6 @@
 ############ SAMPLE ROOTFS ARTIFACT ############
 ARG JETSON_LINUX_SAMPLE_ROOTFS_ARTIFACT_IMAGE_FROM=docker.io/ubuntu:jammy
-FROM ${JETSON_LINUX_SAMPLE_ROOTFS_ARTIFACT_IMAGE_FROM} AS jetson_linux_sample_rootfs_artifact
+FROM --platform=linux/amd64 ${JETSON_LINUX_SAMPLE_ROOTFS_ARTIFACT_IMAGE_FROM} AS jetson_linux_sample_rootfs_artifact
 
 ARG JETSON_VERSION_MAJOR=36
 ARG JETSON_VERSION_MINOR=4
