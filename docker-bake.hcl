@@ -31,7 +31,7 @@ target "build" {
     JETSON_LINUX_ROOTFS_PACKAGE_URL  = split(".", jetson_version)[0] == "35" ? "https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v${split(".", jetson_version)[1]}.${split(".", jetson_version)[2]}/tegra_linux_sample-root-filesystem_r35.${split(".", jetson_version)[1]}.${split(".", jetson_version)[2]}_aarch64.tbz2" : null,
   }
   tags = [
-    jetson_version == JETSON_VERSIONS[0] ? "${IMAGE_NAME}-${samplefs_variant}:latest" : null,
+    jetson_version == JETSON_VERSIONS[0] ? "${IMAGE_NAME}:latest" : null,
     "${IMAGE_NAME}:${split(".", jetson_version)[0]}",
     "${IMAGE_NAME}:${split(".", jetson_version)[0]}.${split(".", jetson_version)[1]}",
     "${IMAGE_NAME}:${jetson_version}",
