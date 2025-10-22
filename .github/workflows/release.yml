@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   promote:
-    uses: getdevopspro/github-actions/.github/workflows/promote.yml@v0.2.12
+    uses: getdevopspro/github-actions/.github/workflows/promote.yml@v0.3.22
     with:
       git-user-name: cleanlogix-cibot
       git-user-email: 203600057+getdevopspro-cibot@users.noreply.github.com
