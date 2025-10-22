@@ -23,7 +23,8 @@ ADD ./.shared/sample_fs-${JETSON_SAMPLEFS_VERSION}-${JETSON_SAMPLEFS_FLAVOR}.tbz
 # WORKAROUND: https://forums.developer.nvidia.com/t/apply-binaries-sh-fail-on-basic-flavor-root-file-system-l4t-36-4-3-dp/322023/22
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    if [ "${JETSON_SAMPLEFS_FLAVOR}" = "basic" ] ; then \
+    # and JETSON_VERSION_MAJOR == 36
+    if [ "${JETSON_SAMPLEFS_FLAVOR}" = "basic" ] && [ "${JETSON_VERSION_MAJOR}" = "36" ] ; then \
       export DEBIAN_FRONTEND=noninteractive && \
       apt-get update && apt-get install -y --no-install-recommends \
         efibootmgr \
