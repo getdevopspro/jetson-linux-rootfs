@@ -20,6 +20,18 @@ ENV JETSON_VERSION_MAJOR=${JETSON_VERSION_MAJOR} \
 
 ADD ./.shared/sample_fs-${JETSON_SAMPLEFS_VERSION}-${JETSON_SAMPLEFS_FLAVOR}.tbz2 /
 
+# WORKAROUND: https://forums.developer.nvidia.com/t/apply-binaries-sh-fail-on-basic-flavor-root-file-system-l4t-36-4-3-dp/322023/22
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    if [ "${JETSON_SAMPLEFS_FLAVOR}" = "basic" ] ; then \
+      export DEBIAN_FRONTEND=noninteractive && \
+      apt-get update && apt-get install -y --no-install-recommends \
+        efibootmgr \
+        i2c-tools \
+        libseat1 \
+        nvme-cli ; \
+    fi
+
 LABEL org.opencontainers.image.title="NVIDIA Jetson Linux SampleFS ${JETSON_SAMPLEFS_ABI}-${JETSON_SAMPLEFS_DISTRO}-${JETSON_SAMPLEFS_FLAVOR}-${JETSON_SAMPLEFS_VERSION}" \
       org.opencontainers.image.version="${JETSON_VERSION}" \
       org.opencontainers.image.description="Container image generated from NVIDIA Jetson Linux SampleFS ${JETSON_SAMPLEFS_ABI}-${JETSON_SAMPLEFS_DISTRO}-${JETSON_SAMPLEFS_FLAVOR}-${JETSON_SAMPLEFS_VERSION} for ${JETSON_VERSION}" \
