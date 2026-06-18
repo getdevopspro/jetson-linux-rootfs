@@ -28,7 +28,7 @@ jobs:
           tool-cache: true
 
       - name: Build container image
-        uses: getdevopspro/github-actions/buildx-bake@v0.3.22
+        uses: getdevopspro/github-actions/buildx-bake@v8.3.11
         with:
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           bake-targets: build
