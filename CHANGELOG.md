@@ -1,3 +1,9 @@
+## [v0.5.0](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.4.1..v0.5.0) - 2026-06-18
+
+### Features
+
+- _(bake)_ Parameterize image name using GITHUB_REPOSITORY_OWNER variable ([`3654ecf`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/3654ecfa5064653bd2541787f757ec0c4783050e))
+
 ## [v0.4.1](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.4.0..v0.4.1) - 2026-06-18
 
 ### Miscellaneous Tasks
