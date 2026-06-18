@@ -1,11 +1,12 @@
 VERSION ?= 0.4.1
 UID := $(shell id -u)
 ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
+GITHUB_REPOSITORY_OWNER ?= getdevopspro
 JETSON_VERSION_PAIRS ?= 36.4.3,jammy 35.6.1,focal
 JETSON_VERSION_PAIR ?= $(firstword $(JETSON_VERSION_PAIRS))
 JETSON_SAMPLEFS_FLAVORS ?= minimal basic desktop
 JETSON_VERSION ?= $(shell echo $(JETSON_VERSION_PAIR) | cut -d, -f1)
-JETSON_LINUX_BUILDER_IMAGE_FROM ?= ghcr.io/getdevopspro/jetson-linux-builder:$(JETSON_VERSION)
+JETSON_LINUX_BUILDER_IMAGE_FROM ?= ghcr.io/$(GITHUB_REPOSITORY_OWNER)/jetson-linux-builder:$(JETSON_VERSION)
 JETSON_SAMPLEFS_ABI ?= aarch64
 JETSON_SAMPLEFS_DISTRO ?= ubuntu
 JETSON_SAMPLEFS_FLAVOR ?= $(firstword $(JETSON_SAMPLEFS_FLAVORS))
@@ -20,7 +21,7 @@ build-rootfs-variant: ## Build a rootfs variant
 		-v $(PWD)/.shared:/workspace/shared \
 		--workdir /workspace/tools/samplefs \
 		--platform linux/$(ARCH) \
-		ghcr.io/getdevopspro/jetson-linux-builder:$(JETSON_VERSION) bash -xc \
+		$(JETSON_LINUX_BUILDER_IMAGE_FROM) bash -xc \
 			'sed -i "s@arch | grep .*@arch | grep \"$$(arch)\")\"@" nv_build_samplefs.sh; \
 			sudo bash -x ./nv_build_samplefs.sh \
 			--abi $(JETSON_SAMPLEFS_ABI) \

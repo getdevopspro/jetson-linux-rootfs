@@ -1,6 +1,14 @@
 // docker-bake.hcl
+variable "GITHUB_REPOSITORY_OWNER" {
+  default = "getdevopspro"
+}
+
+variable "IMAGE_BASE_NAME" {
+  default = "jetson-linux-rootfs"
+}
+
 variable "IMAGE_NAME" {
-  default = "ghcr.io/getdevopspro/jetson-linux-rootfs"
+  default = "ghcr.io/${lower(GITHUB_REPOSITORY_OWNER)}/${IMAGE_BASE_NAME}"
 }
 
 variable "JETSON_VERSION_PAIRS" {

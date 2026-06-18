@@ -8,10 +8,10 @@ Ideal for developers targeting **Jetson Nano**, **Xavier**, **Orin**, and other 
 
 ## 🚀 Key Features
 
-* Based on official L4T sample rootfs.
-* Easily extendable using multi-stage Docker builds.
-* Supports QEMU for x86\_64 → ARM64 emulation.
-* CI/CD friendly for automated builds.
+- Based on official L4T sample rootfs.
+- Easily extendable using multi-stage Docker builds.
+- Supports QEMU for x86_64 → ARM64 emulation.
+- CI/CD friendly for automated builds.
 
 ---
 
@@ -19,7 +19,7 @@ Ideal for developers targeting **Jetson Nano**, **Xavier**, **Orin**, and other 
 
 To customize the root filesystem:
 
-1. Use `ghcr.io/getdevopspro/jetson-linux-rootfs` as your base image.
+1. Use `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs` as your base image.
 2. Add your tools, configs, or binaries.
 3. Export the result to a local `./rootfs` directory.
 
@@ -28,9 +28,9 @@ If you're building on an `amd64` host, install [QEMU](https://docs.docker.com/bu
 ### 🔧 Example: Adding `tcpdump`
 
 ```dockerfile
-docker build . -t ghcr.io/getdevopspro/jetson-linux-rootfs:dev -o ./rootfs \
+docker build . -t ghcr.io/<YOUR_ORG>/jetson-linux-rootfs:dev -o ./rootfs \
   --platform linux/arm64 -f - << "EOF"
-FROM ghcr.io/getdevopspro/jetson-linux-rootfs:36.4.3
+FROM ghcr.io/<YOUR_ORG>/jetson-linux-rootfs:36.4.3
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -52,13 +52,13 @@ These are built following the script and process described in the [Jetson docume
 
 Image naming convention:
 
-`ghcr.io/getdevopspro/jetson-linux-rootfs-<variant>:<L4T_VERSION>`
+`ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-<variant>:<L4T_VERSION>`
 
 Examples:
 
-* `ghcr.io/getdevopspro/jetson-linux-rootfs-minimal:36.4.3`
-* `ghcr.io/getdevopspro/jetson-linux-rootfs-basic:36.4.3`
-* `ghcr.io/getdevopspro/jetson-linux-rootfs-desktop:36.4.3`
+- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-minimal:36.4.3`
+- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-basic:36.4.3`
+- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-desktop:36.4.3`
 
 Choose the appropriate variant depending on your application's requirements.
 
@@ -68,13 +68,13 @@ Choose the appropriate variant depending on your application's requirements.
 
 Images are published to GitHub Container Registry (GHCR):
 
-👉 [`ghcr.io/getdevopspro/jetson-linux-rootfs`](https://ghcr.io/getdevopspro/jetson-linux-rootfs)
+👉 `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs`
 
-👉 [`ghcr.io/getdevopspro/jetson-linux-rootfs-minimal`](https://ghcr.io/getdevopspro/jetson-linux-rootfs-minimal)
+👉 `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-minimal`
 
-👉 [`ghcr.io/getdevopspro/jetson-linux-rootfs-basic`](https://ghcr.io/getdevopspro/jetson-linux-rootfs-basic)
+👉 `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-basic`
 
-👉 [`ghcr.io/getdevopspro/jetson-linux-rootfs-desktop`](https://ghcr.io/getdevopspro/jetson-linux-rootfs-desktop)
+👉 `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-desktop`
 
 Tag format: `L4T_VERSION`, e.g., `36.4.3`
 
