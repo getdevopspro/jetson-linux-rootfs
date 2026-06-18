@@ -1,3 +1,9 @@
+## [v0.5.1](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.5.0..v0.5.1) - 2026-06-18
+
+### Bug Fixes
+
+- _(make)_ Lowercase GitHub owner in builder image reference ([`2585ef3`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/2585ef34d33aff661e89e9006556abeace82701b))
+
 ## [v0.5.0](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.4.1..v0.5.0) - 2026-06-18
 
 ### Features
