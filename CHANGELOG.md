@@ -1,3 +1,9 @@
+## [v0.3.12](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.3.11..v0.3.12) - 2026-06-18
+
+### Miscellaneous Tasks
+
+- Bump github action version ([`0864b75`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/0864b7517cf9a6ae022221aef4dbc66d978e6af0))
+
 ## [v0.3.11](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.3.10..v0.3.11) - 2026-06-18
 
 ### Miscellaneous Tasks
