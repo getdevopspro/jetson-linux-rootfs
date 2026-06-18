@@ -1,3 +1,9 @@
+## [v0.4.1](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.4.0..v0.4.1) - 2026-06-18
+
+### Miscellaneous Tasks
+
+- Remove old nvidia l4s version from matrix ([`4546d10`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/4546d10c24a7057d7eec7ed1a01685a92488717a))
+
 ## [v0.4.0](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.3.13..v0.4.0) - 2026-06-18
 
 ### Features
