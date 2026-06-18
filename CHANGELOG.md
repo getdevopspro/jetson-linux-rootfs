@@ -1,3 +1,9 @@
+## [v0.3.13](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.3.12..v0.3.13) - 2026-06-18
+
+### Miscellaneous Tasks
+
+- Add l4t version 36.5.0 ([`e0212ba`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/e0212ba86cebe83c9736f0960249808276a013b9))
+
 ## [v0.3.12](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.3.11..v0.3.12) - 2026-06-18
 
 ### Miscellaneous Tasks
