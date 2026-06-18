@@ -5,10 +5,8 @@ on:
     branches:
       - main
       - master
-    tags:
-      - "v*"
     paths-ignore:
-      - "**.md"
+      - '**.md'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -16,10 +14,18 @@ concurrency:
 
 permissions:
   contents: write
+  packages: write
+  pull-requests: read
+  statuses: read
 
 jobs:
-  promote:
-    uses: getdevopspro/github-actions/.github/workflows/promote.yml@v8.3.12
+  release:
+    name: Job
+    uses: getdevopspro/github-actions/.github/workflows/release.yml@v8.3.11
     with:
-      git-user-name: cleanlogix-cibot
+      version-makefile: Makefile
+      git-add-files: Makefile
+      git-user-name: getdevopspro-cibot
       git-user-email: 203600057+getdevopspro-cibot@users.noreply.github.com
+      changelog-enabled: true
+      update-release-enabled: true
