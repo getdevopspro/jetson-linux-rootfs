@@ -1,4 +1,4 @@
-VERSION ?= 0.3.13
+VERSION ?= 0.4.0
 UID := $(shell id -u)
 ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 JETSON_VERSION_PAIRS ?= 36.4.3,jammy 35.6.1,focal

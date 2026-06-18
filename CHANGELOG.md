@@ -1,3 +1,13 @@
+## [v0.4.0](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.3.13..v0.4.0) - 2026-06-18
+
+### Features
+
+- _(docker-bake)_ Derive JETSON_LINUX_SAMPLE_ROOTFS_ARTIFACT_IMAGE_FROM from version pair ([`eeea86c`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/eeea86c59f05b48be76350430f98b6e9c85b6ae2))
+
+### Miscellaneous Tasks
+
+- _(checkout)_ Bump action version ([`507c0c8`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/507c0c89a951a399338a7c361cadf964843101c6))
+
 ## [v0.3.13](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.3.12..v0.3.13) - 2026-06-18
 
 ### Miscellaneous Tasks
