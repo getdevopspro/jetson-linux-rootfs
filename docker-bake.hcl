@@ -32,13 +32,14 @@ target "build" {
     jetson_version_pair = JETSON_VERSION_PAIRS
   }
   args = {
-    JETSON_VERSION                   = jetson_version(jetson_version_pair),
-    JETSON_VERSION_MAJOR             = split(".", jetson_version(jetson_version_pair))[0],
-    JETSON_VERSION_MINOR             = split(".", jetson_version(jetson_version_pair))[1],
-    JETSON_VERSION_PATCH             = split(".", jetson_version(jetson_version_pair))[2],
-    JETSON_LINUX_RELEASE_URI         = split(".", jetson_version(jetson_version_pair))[0] == "35" ? "https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}" : null
-    JETSON_LINUX_ROOTFS_PACKAGE_NAME = split(".", jetson_version(jetson_version_pair))[0] == "35" ? "tegra_linux_sample-root-filesystem_r35.${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}_aarch64.tbz2" : null,
-    JETSON_LINUX_ROOTFS_PACKAGE_URL  = split(".", jetson_version(jetson_version_pair))[0] == "35" ? "https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}/tegra_linux_sample-root-filesystem_r35.${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}_aarch64.tbz2" : null,
+    JETSON_VERSION                                 = jetson_version(jetson_version_pair),
+    JETSON_VERSION_MAJOR                           = split(".", jetson_version(jetson_version_pair))[0],
+    JETSON_VERSION_MINOR                           = split(".", jetson_version(jetson_version_pair))[1],
+    JETSON_VERSION_PATCH                           = split(".", jetson_version(jetson_version_pair))[2],
+    JETSON_LINUX_SAMPLE_ROOTFS_ARTIFACT_IMAGE_FROM = "docker.io/ubuntu:${jetson_ubuntu_release(jetson_version_pair)}",
+    JETSON_LINUX_RELEASE_URI                       = split(".", jetson_version(jetson_version_pair))[0] == "35" ? "https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}" : null
+    JETSON_LINUX_ROOTFS_PACKAGE_NAME               = split(".", jetson_version(jetson_version_pair))[0] == "35" ? "tegra_linux_sample-root-filesystem_r35.${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}_aarch64.tbz2" : null,
+    JETSON_LINUX_ROOTFS_PACKAGE_URL                = split(".", jetson_version(jetson_version_pair))[0] == "35" ? "https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}/tegra_linux_sample-root-filesystem_r35.${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}_aarch64.tbz2" : null,
   }
   tags = concat(
     jetson_version_pair == JETSON_VERSION_PAIRS[0] ? ["${IMAGE_NAME}:latest"] : [],
