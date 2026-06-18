@@ -1,3 +1,9 @@
+## [v0.5.2](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.5.1..v0.5.2) - 2026-06-18
+
+### Miscellaneous Tasks
+
+- _(buiold)_ Add ghcr login step ([`cda891b`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/cda891b809c989dfccf84507b61149d67dd3b725))
+
 ## [v0.5.1](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.5.0..v0.5.1) - 2026-06-18
 
 ### Bug Fixes
