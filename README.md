@@ -30,7 +30,7 @@ If you're building on an `amd64` host, install [QEMU](https://docs.docker.com/bu
 ```dockerfile
 docker build . -t ghcr.io/<YOUR_ORG>/jetson-linux-rootfs:dev -o ./rootfs \
   --platform linux/arm64 -f - << "EOF"
-FROM ghcr.io/<YOUR_ORG>/jetson-linux-rootfs:36.4.3
+FROM ghcr.io/<YOUR_ORG>/jetson-linux-rootfs:36.5.0
 
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -44,11 +44,11 @@ EOF
 
 In addition to the default sample rootfs, this repository also provides three additional root filesystem variants based on NVIDIA's official L4T scripts:
 
-1. **[minimal](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#minimal-flavor-root-file-system)** – smallest footprint with only essential components
-2. **[basic](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#basic-flavor-root-file-system)** – includes minimal plus common runtime libraries and tools
-3. **[desktop](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#desktop-flavor-root-file-system)** – includes GUI and desktop-related components
+1. **[minimal](https://docs.nvidia.com/jetson/archives/r36.5.0/DeveloperGuide/SD/RootFileSystem.html#minimal-flavor-root-file-system)** – smallest footprint with only essential components
+2. **[basic](https://docs.nvidia.com/jetson/archives/r36.5.0/DeveloperGuide/SD/RootFileSystem.html#basic-flavor-root-file-system)** – includes minimal plus common runtime libraries and tools
+3. **[desktop](https://docs.nvidia.com/jetson/archives/r36.5.0/DeveloperGuide/SD/RootFileSystem.html#desktop-flavor-root-file-system)** – includes GUI and desktop-related components
 
-These are built following the script and process described in the [Jetson documentation](https://docs.nvidia.com/jetson/archives/r36.4.3/DeveloperGuide/SD/RootFileSystem.html#manually-generate-a-root-file-system)
+These are built following the script and process described in the [Jetson documentation](https://docs.nvidia.com/jetson/archives/r36.5.0/DeveloperGuide/SD/RootFileSystem.html#manually-generate-a-root-file-system)
 
 Image naming convention:
 
@@ -56,9 +56,9 @@ Image naming convention:
 
 Examples:
 
-- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-minimal:36.4.3`
-- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-basic:36.4.3`
-- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-desktop:36.4.3`
+- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-minimal:36.5.0`
+- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-basic:36.5.0`
+- `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-desktop:36.5.0`
 
 Choose the appropriate variant depending on your application's requirements.
 
@@ -76,7 +76,21 @@ Images are published to GitHub Container Registry (GHCR):
 
 👉 `ghcr.io/<YOUR_ORG>/jetson-linux-rootfs-desktop`
 
-Tag format: `L4T_VERSION`, e.g., `36.4.3`
+Tag format: `L4T_VERSION`, e.g., `36.5.0`
+
+## Build Versions
+
+Set `JETSON_VERSION_PAIRS` to choose the L4T and Ubuntu release pairs that Make
+and Docker Buildx Bake should build. Keep the newest pair first because it gets
+the `latest` tag.
+
+```bash
+JETSON_VERSION_PAIRS="36.5.0,jammy 36.4.3,jammy" docker buildx bake build
+JETSON_VERSION_PAIRS="36.5.0,jammy 36.4.3,jammy" make build-rootfs-variants
+```
+
+Docker Buildx Bake accepts `JETSON_SAMPLEFS_FLAVORS` as a comma-separated list,
+for example `JETSON_SAMPLEFS_FLAVORS="minimal,basic,desktop"`.
 
 ---
 

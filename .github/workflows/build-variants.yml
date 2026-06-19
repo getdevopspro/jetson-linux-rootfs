@@ -15,17 +15,41 @@ permissions:
 jobs:
   files-variants:
     runs-on: ubuntu-24.04
+    outputs:
+      jetson_version_pairs: >-
+        ${{ steps.matrix-values.outputs.jetson_version_pairs }}
+      jetson_samplefs_flavors: >-
+        ${{ steps.matrix-values.outputs.jetson_samplefs_flavors }}
     strategy:
       matrix:
-        jetson_version_pair: ["36.5.0,jammy", "36.4.3,jammy"]
-        jetson_samplefs_flavor: ["minimal", "basic", "desktop"]
-    name: Build for ${{ matrix.variant }}
+        jetson_version_pair: &jetson_version_pairs
+          - "36.5.0,jammy"
+          - "36.4.3,jammy"
+        jetson_samplefs_flavor: &jetson_samplefs_flavors
+          - minimal
+          - basic
+          - desktop
+        jetson_version_pairs:
+          - *jetson_version_pairs
+        jetson_samplefs_flavors:
+          - *jetson_samplefs_flavors
+    name: >-
+      Build for ${{ matrix.jetson_version_pair }}
+      ${{ matrix.jetson_samplefs_flavor }}
     steps:
+      - name: Export matrix values
+        id: matrix-values
+        run: |
+          echo "jetson_version_pairs=${{ join(matrix.jetson_version_pairs, ' ') }}" \
+            >> "$GITHUB_OUTPUT"
+          echo "jetson_samplefs_flavors=${{ join(matrix.jetson_samplefs_flavors, ',') }}" \
+            >> "$GITHUB_OUTPUT"
+
       - name: Checkout repository
         uses: actions/checkout@v6
 
       - name: Set up qemu
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
 
       - name: Log in to the container registry
         uses: docker/login-action@v4
@@ -40,12 +64,18 @@ jobs:
             JETSON_VERSION_PAIR=${{ matrix.jetson_version_pair }} \
             JETSON_SAMPLEFS_FLAVOR=${{ matrix.jetson_samplefs_flavor }}
 
+      - name: Set artifact name
+        run: |
+          artifact_name="shared-${{ matrix.jetson_version_pair }}"
+          artifact_name="$artifact_name-${{ matrix.jetson_samplefs_flavor }}"
+          echo "artifact_name=$artifact_name" >> "$GITHUB_ENV"
+
       - name: Upload shared artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           path: ${{ github.workspace }}/.shared
           include-hidden-files: true
-          name: shared-${{ matrix.jetson_version_pair }}-${{ matrix.jetson_samplefs_flavor }}
+          name: ${{ env.artifact_name }}
 
   build-variants:
     runs-on: ubuntu-24.04-arm
@@ -70,6 +100,11 @@ jobs:
 
       - name: Build container image
         uses: getdevopspro/github-actions/buildx-bake@v8.3.11
+        env:
+          JETSON_VERSION_PAIRS: >-
+            ${{ needs.files-variants.outputs.jetson_version_pairs }}
+          JETSON_SAMPLEFS_FLAVORS: >-
+            ${{ needs.files-variants.outputs.jetson_samplefs_flavors }}
         with:
           registry-password: ${{ secrets.GITHUB_TOKEN }}
           bake-targets: build-variants

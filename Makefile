@@ -3,7 +3,7 @@ UID := $(shell id -u)
 ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 GITHUB_REPOSITORY_OWNER ?= getdevopspro
 GITHUB_REPOSITORY_OWNER_LOWER := $(shell printf '%s' '$(GITHUB_REPOSITORY_OWNER)' | tr '[:upper:]' '[:lower:]')
-JETSON_VERSION_PAIRS ?= 36.4.3,jammy 35.6.1,focal
+JETSON_VERSION_PAIRS ?= 36.5.0,jammy 36.4.3,jammy
 JETSON_VERSION_PAIR ?= $(firstword $(JETSON_VERSION_PAIRS))
 JETSON_SAMPLEFS_FLAVORS ?= minimal basic desktop
 JETSON_VERSION ?= $(shell echo $(JETSON_VERSION_PAIR) | cut -d, -f1)
@@ -30,7 +30,7 @@ build-rootfs-variant: ## Build a rootfs variant
 			--flavor $(JETSON_SAMPLEFS_FLAVOR) \
 			--version $(JETSON_SAMPLEFS_VERSION); \
 			chown $(UID) sample_fs.tbz2; \
-			mv sample_fs.tbz2 /workspace/shared/sample_fs-$(JETSON_SAMPLEFS_VERSION)-$(JETSON_SAMPLEFS_FLAVOR).tbz2'
+			mv sample_fs.tbz2 /workspace/shared/sample_fs-$(JETSON_VERSION)-$(JETSON_SAMPLEFS_VERSION)-$(JETSON_SAMPLEFS_FLAVOR).tbz2'
 
 build-rootfs-variants: ## Build all rootfs variants
 	for jetson_version in $(JETSON_VERSION_PAIRS); do \

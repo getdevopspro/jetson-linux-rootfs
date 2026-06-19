@@ -12,8 +12,14 @@ variable "IMAGE_NAME" {
 }
 
 variable "JETSON_VERSION_PAIRS" {
-  # IMPORTANT: latest always be the first element in the list
-  default = ["36.4.3,jammy", "35.6.1,focal"]
+  # IMPORTANT: latest must always be the first pair in the list.
+  # Keep this space-separated so the same environment variable works for Make
+  # and Docker Buildx Bake.
+  default = "36.5.0,jammy 36.4.3,jammy"
+}
+
+variable "JETSON_SAMPLEFS_FLAVORS" {
+  default = "minimal,basic,desktop"
 }
 
 function "jetson_version" {
@@ -37,7 +43,7 @@ target "build" {
     "linux/arm64",
   ]
   matrix = {
-    jetson_version_pair = JETSON_VERSION_PAIRS
+    jetson_version_pair = split(" ", JETSON_VERSION_PAIRS)
   }
   args = {
     JETSON_VERSION                                 = jetson_version(jetson_version_pair),
@@ -50,7 +56,7 @@ target "build" {
     JETSON_LINUX_ROOTFS_PACKAGE_URL                = split(".", jetson_version(jetson_version_pair))[0] == "35" ? "https://developer.nvidia.com/downloads/embedded/l4t/r35_release_v${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}/tegra_linux_sample-root-filesystem_r35.${split(".", jetson_version(jetson_version_pair))[1]}.${split(".", jetson_version(jetson_version_pair))[2]}_aarch64.tbz2" : null,
   }
   tags = concat(
-    jetson_version_pair == JETSON_VERSION_PAIRS[0] ? ["${IMAGE_NAME}:latest"] : [],
+    jetson_version_pair == split(" ", JETSON_VERSION_PAIRS)[0] ? ["${IMAGE_NAME}:latest"] : [],
     [
       "${IMAGE_NAME}:${split(".", jetson_version(jetson_version_pair))[0]}",
       "${IMAGE_NAME}:${split(".", jetson_version(jetson_version_pair))[0]}.${split(".", jetson_version(jetson_version_pair))[1]}",
@@ -73,8 +79,8 @@ target "build-variants" {
     "linux/arm64",
   ]
   matrix = {
-    jetson_version_pair = JETSON_VERSION_PAIRS
-    samplefs_variant    = ["minimal", "basic", "desktop"]
+    jetson_version_pair = split(" ", JETSON_VERSION_PAIRS)
+    samplefs_variant    = [for flavor in split(",", JETSON_SAMPLEFS_FLAVORS) : trimspace(flavor)]
   }
   args = {
     JETSON_VERSION          = jetson_version(jetson_version_pair),
@@ -87,7 +93,7 @@ target "build-variants" {
     JETSON_SAMPLEFS_VERSION = jetson_ubuntu_release(jetson_version_pair),
   }
   tags = concat(
-    jetson_version_pair == JETSON_VERSION_PAIRS[0] ? ["${IMAGE_NAME}-${samplefs_variant}:latest"] : [],
+    jetson_version_pair == split(" ", JETSON_VERSION_PAIRS)[0] ? ["${IMAGE_NAME}-${samplefs_variant}:latest"] : [],
     [
       "${IMAGE_NAME}-${samplefs_variant}:${split(".", jetson_version(jetson_version_pair))[0]}",
       "${IMAGE_NAME}-${samplefs_variant}:${split(".", jetson_version(jetson_version_pair))[0]}.${split(".", jetson_version(jetson_version_pair))[1]}",
