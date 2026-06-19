@@ -1,3 +1,9 @@
+## [v0.5.3](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.5.2..v0.5.3) - 2026-06-19
+
+### Bug Fixes
+
+- _(ci)_ Drive Jetson variant builds from version-pair env ([`24a5d8f`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/24a5d8f9d8d0b9becf134eeb01a0e1aeee149442))
+
 ## [v0.5.2](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.5.1..v0.5.2) - 2026-06-18
 
 ### Miscellaneous Tasks

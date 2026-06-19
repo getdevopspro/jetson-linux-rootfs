@@ -1,4 +1,4 @@
-VERSION ?= 0.5.2
+VERSION ?= 0.5.3
 UID := $(shell id -u)
 ARCH ?= $(shell uname -m | sed 's/x86_64/amd64/' | sed 's/aarch64/arm64/')
 GITHUB_REPOSITORY_OWNER ?= getdevopspro
