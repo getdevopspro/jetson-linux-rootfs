@@ -92,14 +92,14 @@ jobs:
         with:
           tool-cache: true
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: ${{ github.workspace }}/.shared
           pattern: shared-*
           merge-multiple: true
 
       - name: Build container image
-        uses: getdevopspro/github-actions/buildx-bake@v8.3.11
+        uses: getdevopspro/github-actions/buildx-bake@v8.3.12
         env:
           JETSON_VERSION_PAIRS: >-
             ${{ needs.files-variants.outputs.jetson_version_pairs }}
