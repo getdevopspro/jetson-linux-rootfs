@@ -1,23 +1,5 @@
 # jetson-linux-rootfs
 
-## Instruction index
-
-Read applicable entries in order before the repository guidance below.
-Resolve local paths from this repository's root. Read each resolved file once
-to avoid duplicate loading and cycles. Resolve references inside imported files
-from their real target directories after following symlinks.
-
-### Shared context
-
-These files are optional. Read available files in this order, skipping absent
-files and reporting broken or unreadable links:
-
-1. `.agents/organization/AGENTS.md` — organization-wide policy and shared context.
-2. `.agents/workspace/AGENTS.md` — workspace scope, coordination, and decisions.
-
-Apply organization guidance, then workspace guidance, then the repository
-instructions below. More specific applicable instructions take precedence.
-
 ## Repository guidance
 
 - This repository packages NVIDIA L4T sample root filesystems as ARM64 images,
