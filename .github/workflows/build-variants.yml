@@ -76,6 +76,9 @@ jobs:
           path: ${{ github.workspace }}/.shared
           include-hidden-files: true
           name: ${{ env.artifact_name }}
+          # Only the build-variants job of the same run uses these archives.
+          # To rebuild after the artifacts expire, start a new run.
+          retention-days: 1
 
   build-variants:
     runs-on: ubuntu-24.04-arm

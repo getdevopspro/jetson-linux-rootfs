@@ -62,6 +62,40 @@ Examples:
 
 Choose the appropriate variant depending on your application's requirements.
 
+### 🔑 SSH host keys
+
+Variant archives and images built from this version of the repository contain
+no SSH host keys. Installing `openssh-server` while the sample rootfs is built
+generates them, and every system built from the same archive would share them,
+so `scripts/remove-ssh-host-keys.sh` removes them after the build. Images
+published before this change, including dated `<L4T_VERSION>-<YYYYMMDDhhmm>`
+tags, still contain shared keys. Remove them in your build with
+`RUN rm -f /etc/ssh/ssh_host_*`.
+
+`sshd` does not start without host keys. Generate them on each system's first
+boot, before `sshd` starts, for example with this service:
+
+```ini
+# /etc/systemd/system/ssh-host-keys.service
+[Unit]
+Description=Generate SSH host keys
+Before=ssh.service
+ConditionPathExists=!/etc/ssh/ssh_host_ed25519_key
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ssh-keygen -A
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable it in the image with `systemctl enable ssh-host-keys.service`. The
+service runs only while the image has no host keys. A build step that installs,
+upgrades or reconfigures `openssh-server`, such as `apt-get upgrade`, creates
+them again, so delete them in the same `RUN` step, for example
+`apt-get upgrade -y && rm -f /etc/ssh/ssh_host_*`.
+
 ---
 
 ## 📦 Image Tags
@@ -91,6 +125,9 @@ JETSON_VERSION_PAIRS="36.5.0,jammy 36.4.3,jammy" make build-rootfs-variants
 
 Docker Buildx Bake accepts `JETSON_SAMPLEFS_FLAVORS` as a comma-separated list,
 for example `JETSON_SAMPLEFS_FLAVORS="minimal,basic,desktop"`.
+
+The Make targets also need GNU tar and bzip2 on the build host, because
+`scripts/remove-ssh-host-keys.sh` runs there after the container build.
 
 ---
 

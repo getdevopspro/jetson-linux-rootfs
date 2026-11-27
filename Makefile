@@ -31,6 +31,7 @@ build-rootfs-variant: ## Build a rootfs variant
 			--version $(JETSON_SAMPLEFS_VERSION); \
 			chown $(UID) sample_fs.tbz2; \
 			mv sample_fs.tbz2 /workspace/shared/sample_fs-$(JETSON_VERSION)-$(JETSON_SAMPLEFS_VERSION)-$(JETSON_SAMPLEFS_FLAVOR).tbz2'
+	./scripts/remove-ssh-host-keys.sh .shared/sample_fs-$(JETSON_VERSION)-$(JETSON_SAMPLEFS_VERSION)-$(JETSON_SAMPLEFS_FLAVOR).tbz2
 
 build-rootfs-variants: ## Build all rootfs variants
 	for jetson_version in $(JETSON_VERSION_PAIRS); do \
