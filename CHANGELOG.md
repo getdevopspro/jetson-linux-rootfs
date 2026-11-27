@@ -1,3 +1,14 @@
+## [v1.0.0](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.5.4..v1.0.0) - 2026-11-27
+
+### Bug Fixes
+
+- [**breaking**] Remove SSH host keys from the rootfs variants ([`edbd9e7`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/edbd9e7b311fb4912cb039a04ec07a177c9a5fe7))
+
+### Documentation
+
+- _(agents)_ Organize instruction indexes ([`b3e74dc`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/b3e74dcbce1ca01888028e5b54eb40b64c5fdf95))
+- _(agents)_ Remove shared context symlink references ([`68de3f6`](https://github.com/getdevopspro/jetson-linux-rootfs/commit/68de3f683e8705e5e20a3e6f77c4cce07eaf376e))
+
 ## [v0.5.4](https://github.com/getdevopspro/jetson-linux-rootfs/compare/v0.5.3..v0.5.4) - 2026-06-19
 
 ### Miscellaneous Tasks
